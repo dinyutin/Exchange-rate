@@ -1,0 +1,35 @@
+<!DOCTYPE html> 
+<html> 
+  
+<head> 
+    <title> 
+        jQuery getJSON() Method 
+    </title> 
+      
+    <script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> 
+    </script> 
+      
+    <!-- Script to get JSON file and display its content --> 
+    <script> 
+    $.ajax({
+    	url: 'https://tw.rter.info/capi.php',
+    	type: 'GET',
+    	timeout: 100,  //單位：毫秒。
+    	dataType: 'json'
+
+    	}).done(function(USDFKP){
+    	$('#answer').text(USDFKP);
+    	// 註解：把成功後的回應寫在<div id=”answer”>...</div>裡面。
+
+    	}).fail(function() {
+    	alert('錯誤！請您務必填寫資料！');
+    	});
+      </script> 
+   </head> 
+       
+   <body> 
+     <div id="answer">...</div>
+        
+   </body> 
+</html>
