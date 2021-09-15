@@ -1,6 +1,8 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="model.*"%>
+<%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -33,6 +35,14 @@
     </ul>
     </form>
     </div>
+
+<c:if test="${not empty errorMsgs}">
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 
 </body>
 </html>

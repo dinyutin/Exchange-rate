@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -45,6 +47,13 @@ public class RecordServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		if ("insert".equals(action)) {
+			
+			//錯誤處理
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
 			
 			Double rate = null;//匯率
 			String currency =req.getParameter("currency");//幣別
@@ -106,10 +115,20 @@ public class RecordServlet extends HttpServlet {
 					}else {
 						discount=0.0;
 					}
+				if(price<discount) {
+					errorMsgs.add("金額必須大於折扣");
+				}else {
 				Double result1= price*rate-discount;
 				result = Math.round(result1*100.0)/100.0;
+				}
+
 			}
-			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/index.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
 			 
 			 
 			
