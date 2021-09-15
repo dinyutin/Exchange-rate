@@ -48,7 +48,12 @@ public class RecordServlet extends HttpServlet {
 			
 			Double rate = null;//匯率
 			String currency =req.getParameter("currency");//幣別
-			Double price = new Double(req.getParameter("price"));//價錢
+			Double price=0.0;
+			if(req.getParameter("price").trim()!=""){
+			 price = new Double(req.getParameter("price"));
+			}else{
+			 price=0.0;
+					 };//價錢
 			Double discount = null;
 			Double result = null;		
 			//
